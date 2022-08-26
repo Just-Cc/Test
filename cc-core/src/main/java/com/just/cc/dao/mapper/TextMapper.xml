@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.just.cc.dao.mapper.TextMapper">
+    <insert id="textBatchInsert" parameterType="com.just.cc.domain.bean.Text">
+        insert into t_text (text1, text2, text3) values
+        <foreach collection="texts" item="text" separator=",">
+            (#{text.text1},#{text.text2},#{text.text3})
+        </foreach>
+    </insert>
+
+    <insert id="textInsert" parameterType="com.just.cc.domain.bean.Text">
+        insert into t_text (text1, text2, text3) values (#{text.text1}, #{text.text2}, #{text.text3})
+    </insert>
+</mapper>
