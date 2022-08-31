@@ -10,5 +10,13 @@ public interface Constants {
 
     String TEST = "/test";
 
-    String RABBIT_BASEURL = "/rabbit";
+    String MQ = "/mq";
+
+    String RABBIT = "/rabbit";
+
+    String ROCKET = "/rocket";
+
+    String LOCK = "/lock";
+
+    String REDIS = "/redis";
 }

@@ -1,7 +1,6 @@
 package com.just.cc.mq.publisher.controller;
 
-import org.springframework.amqp.core.AmqpTemplate;
-import org.springframework.amqp.core.Message;
+import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,17 +14,29 @@ import static com.just.cc.constants.Constants.*;
  * @Date: 2022/8/25 15:23
  */
 @RestController
-@RequestMapping(RABBIT_BASEURL)
+@RequestMapping(MQ)
 public class PublishController {
+
+    private String ROCKET_TOPIC = "cc-topic";
 
     @Autowired
     private RabbitTemplate rabbitTemplate;
+    @Autowired
+    private RocketMQTemplate rocketMQTemplate;
 
-    @GetMapping(TEST)
-    public void publish(){
-        for (int i = 1; i < 11; i++) {
-            String msg = "这是一条测试MQ消息" + i;
+    @GetMapping(RABBIT + TEST)
+    public void rabbitPublish(){
+        for (int i = 1; i < 101; i++) {
+            String msg = "这是一条测试RabbitMQ消息" + i;
             rabbitTemplate.convertAndSend("boot-topic-exchange","TEST",msg);
+        }
+    }
+
+    @GetMapping(ROCKET + TEST)
+    public void rocketPublish(){
+        for (int i = 1; i < 11; i++) {
+            String msg = "这是一条测试RocketMQ消息" + i;
+            rocketMQTemplate.convertAndSend(ROCKET_TOPIC,msg);
         }
     }
 }
